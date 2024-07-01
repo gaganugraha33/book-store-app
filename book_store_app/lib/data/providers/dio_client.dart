@@ -9,11 +9,11 @@ class DioClient {
   DioClient()
       : _dio = Dio(BaseOptions(
           baseUrl: dotenv.env['BASE_URL'] ?? '',
-          connectTimeout: const Duration(seconds: 5),
+          connectTimeout: const Duration(seconds: 10),
           receiveTimeout: const Duration(seconds: 3),
         )) {
     _dio.interceptors.add(InterceptorsWrapper(onRequest: (option, handler) {
-      log('Request[${option.method}] => PATH: ${option.path}');
+      log('Request[${option.method}] => PATH: ${option.baseUrl + option.path + option.queryParameters.toString()}');
       return handler.next(option);
     }, onResponse: (response, handler) {
       log('Response[${response.statusCode}] => DATA: ${response.data}');

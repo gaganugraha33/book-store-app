@@ -10,10 +10,12 @@ class BookProvider {
 
   BookProvider() : _dioClient = DioClient();
 
-  Future<BookModel> fetchBook({String query = ''}) async {
+  Future<BookModel> fetchBook({String query = '', int page = 0}) async {
     try {
-      final response = await _dioClient.dio
-          .get('/books', queryParameters: {'search': query});
+      final response = await _dioClient.dio.get('/books', queryParameters: {
+        'search': query,
+        'page': page,
+      });
       if (response.statusCode == 200) {
         final book = response.data;
         return BookModel.fromJson(book);
