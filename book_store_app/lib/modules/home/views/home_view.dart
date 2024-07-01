@@ -32,13 +32,7 @@ class HomeView extends StatelessWidget {
                           size: 20,
                         )),
                         onPressed: () {
-                          controller.currentPage.value = 1;
-                          controller.searchController.clear();
-                          controller.searchQueryPost('');
-                          controller.isShowSearch(false);
-                          controller.searchFocusNode.unfocus();
-                          controller.books.clear();
-                          controller.fetchBook();
+                          controller.clearSearch();
                         }),
                   ),
                   hintText: AppStrings.inputKeyword,
@@ -93,6 +87,10 @@ class HomeView extends StatelessWidget {
                     : BookItem(book: controller.books[index]);
               },
             );
+          case ViewState.empty:
+            return const Center(
+                child: Text(AppStrings.dataIsEmpty,
+                    style: TextStyle(color: Colors.black)));
           default:
             return Container();
         }

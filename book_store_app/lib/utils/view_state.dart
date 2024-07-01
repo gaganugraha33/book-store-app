@@ -3,4 +3,5 @@ enum ViewState {
   loading,
   error,
   success,
+  empty,
 }

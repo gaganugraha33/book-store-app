@@ -46,7 +46,11 @@ class HomeController extends GetxController {
         currentPage.value++;
       }
 
-      viewState(ViewState.success);
+      if (books.isEmpty) {
+        viewState(ViewState.empty);
+      } else {
+        viewState(ViewState.success);
+      }
     } catch (e) {
       error(e.toString());
       viewState(ViewState.error);
@@ -69,6 +73,16 @@ class HomeController extends GetxController {
         FocusManager.instance.primaryFocus?.unfocus();
       }
     });
+  }
+
+  void clearSearch() {
+    currentPage.value = 1;
+    searchController.clear();
+    searchQueryPost('');
+    isShowSearch(false);
+    searchFocusNode.unfocus();
+    books.clear();
+    fetchBook();
   }
 
   Future<void> _onSearch() async {
