@@ -1,5 +1,6 @@
 import 'package:book_store_app/modules/home/controllers/home_controller.dart';
 import 'package:book_store_app/modules/home/widgets/book_item.dart';
+import 'package:book_store_app/modules/likes/controllers/like_controller.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -10,6 +11,7 @@ class HomeView extends StatelessWidget {
   HomeView({super.key});
 
   final HomeController controller = Get.find();
+  final LikeController likeController = Get.find();
 
   @override
   Widget build(BuildContext context) {
@@ -32,7 +34,8 @@ class HomeView extends StatelessWidget {
                           size: 20,
                         )),
                         onPressed: () {
-                          controller.clearSearch();
+                          controller.clearData();
+                          controller.fetchBook();
                         }),
                   ),
                   hintText: AppStrings.inputKeyword,
@@ -70,21 +73,36 @@ class HomeView extends StatelessWidget {
                       ? controller.books.length
                       : controller.books.length + 1,
               itemBuilder: (context, index) {
-                return index >= controller.books.length
-                    ? const Padding(
-                        padding: EdgeInsets.only(
-                          top: 20.0,
-                          bottom: 20.0,
-                        ),
-                        child: Column(
-                          children: <Widget>[
-                            CupertinoActivityIndicator(),
-                            SizedBox(height: 5.0),
-                            Text(AppStrings.loadMoreInfo),
-                          ],
-                        ),
-                      )
-                    : BookItem(book: controller.books[index]);
+                if (index >= controller.books.length) {
+                  return const Padding(
+                    padding: EdgeInsets.only(
+                      top: 20.0,
+                      bottom: 20.0,
+                    ),
+                    child: Column(
+                      children: <Widget>[
+                        CupertinoActivityIndicator(),
+                        SizedBox(height: 5.0),
+                        Text(AppStrings.loadMoreInfo),
+                      ],
+                    ),
+                  );
+                } else {
+                  final book = controller.books[index];
+                  final isLiked = likeController.isBookLiked(book).obs;
+                  return BookItem(
+                    book: book,
+                    onLike: () {
+                      if (likeController.isBookLiked(book)) {
+                        likeController.removeFromLikes(book);
+                      } else {
+                        likeController.addBookToLikes(book);
+                      }
+                      isLiked.value = !isLiked.value;
+                    },
+                    isLiked: isLiked,
+                  );
+                }
               },
             );
           case ViewState.empty:

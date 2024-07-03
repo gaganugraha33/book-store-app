@@ -25,6 +25,7 @@ class HomeController extends GetxController {
   @override
   void onInit() {
     super.onInit();
+    clearData();
     scrollController.addListener(() => _onScroll());
     searchFocusNode.addListener(() => _onSearch());
     fetchBook();
@@ -75,14 +76,13 @@ class HomeController extends GetxController {
     });
   }
 
-  void clearSearch() {
+  void clearData() {
     currentPage.value = 1;
     searchController.clear();
     searchQueryPost('');
     isShowSearch(false);
     searchFocusNode.unfocus();
     books.clear();
-    fetchBook();
   }
 
   Future<void> _onSearch() async {
@@ -104,5 +104,11 @@ class HomeController extends GetxController {
         fetchBook();
       }
     }
+  }
+
+  @override
+  void dispose() {
+    searchController.dispose();
+    super.dispose();
   }
 }

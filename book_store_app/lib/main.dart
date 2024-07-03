@@ -3,8 +3,11 @@ import 'package:book_store_app/utils/constants.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:get/get.dart';
+import 'package:hive_flutter/hive_flutter.dart';
 
 Future<void> main() async {
+  await Hive.initFlutter();
+  await Hive.openBox(AppStrings.likedBooks);
   await dotenv.load(fileName: ".env");
   runApp(const MyApp());
 }

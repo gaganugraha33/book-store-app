@@ -40,7 +40,7 @@ class Books {
   List<String>? languages;
   bool? copyright;
   String? mediaType;
-  Formats? formats;
+  // Formats? formats;
   int? downloadCount;
 
   Books(
@@ -52,7 +52,7 @@ class Books {
         this.languages,
         this.copyright,
         this.mediaType,
-        this.formats,
+        // this.formats,
         this.downloadCount});
 
   Books.fromJson(Map<String, dynamic> json) {
@@ -69,8 +69,8 @@ class Books {
     languages = json['languages'].cast<String>();
     copyright = json['copyright'];
     mediaType = json['media_type'];
-    formats =
-    json['formats'] != null ? Formats.fromJson(json['formats']) : null;
+    // formats =
+    // json['formats'] != null ? Formats.fromJson(json['formats']) : null;
     downloadCount = json['download_count'];
   }
 
@@ -86,9 +86,9 @@ class Books {
     data['languages'] = languages;
     data['copyright'] = copyright;
     data['media_type'] =mediaType;
-    if (formats != null) {
-      data['formats'] = formats!.toJson();
-    }
+    // if (formats != null) {
+    //   data['formats'] = formats!.toJson();
+    // }
     data['download_count'] = downloadCount;
     return data;
   }
