@@ -29,7 +29,7 @@ class DetailView extends StatelessWidget {
                     decoration: BoxDecoration(
                       image: DecorationImage(
                         image: imageProvider,
-                        fit: BoxFit.cover,
+                        fit: BoxFit.fill,
                         colorFilter: const ColorFilter.mode(
                           Colors.red,
                           BlendMode.colorBurn,
@@ -50,13 +50,12 @@ class DetailView extends StatelessWidget {
                 child: Row(
                   mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(book.title ?? ''),
-                        Text(
-                            'Authors: ${book.authors?.map((e) => e.name).join(', ')}')
-                      ],
+                    Expanded(
+                      child: Text(
+                        book.title ?? '',
+                        style: const TextStyle(
+                            fontWeight: FontWeight.bold, fontSize: 20),
+                      ),
                     ),
                     IconButton(
                       icon: Icon(
@@ -72,7 +71,26 @@ class DetailView extends StatelessWidget {
                           controller.addBookToLikes(book);
                         }
                       },
-                    )
+                    ),
+                  ],
+                ),
+              ),
+              Padding(
+                padding: const EdgeInsets.symmetric(horizontal: 10),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                        'Authors: ${book.authors?.map((e) => e.name).join(', ')}'),
+                    const SizedBox(height: 5,),
+                    Text(
+                        'Languages: ${book.languages?.map((e) => e).join(', ')}'),
+                    const SizedBox(height: 5,),
+                    Text(
+                        'Bookshelves: ${book.bookshelves?.map((e) => e).join(', ')}'),
+                    const SizedBox(height: 5,),
+                    Text(
+                        'Subjects: ${book.subjects?.map((e) => e).join(', ')}'),
                   ],
                 ),
               )

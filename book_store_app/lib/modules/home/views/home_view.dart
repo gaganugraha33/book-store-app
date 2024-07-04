@@ -69,11 +69,10 @@ class HomeView extends StatelessWidget {
             return ListView.builder(
               controller: controller.scrollController,
               itemCount:
-              controller.bookModel.value.count == controller.books.length
-                  ? controller.books.length
-                  : controller.books.length + 1,
+                  controller.bookModel.value.count == controller.books.length
+                      ? controller.books.length
+                      : controller.books.length + 1,
               itemBuilder: (context, index) {
-                print('length ${ controller.bookModel.value.count}|${controller.books.length}');
                 if (index >= controller.books.length) {
                   return const Padding(
                     padding: EdgeInsets.only(
@@ -91,9 +90,7 @@ class HomeView extends StatelessWidget {
                 } else {
                   final book = controller.books[index];
                   return Obx(() {
-                    final isLiked = likeController
-                        .isBookLiked(book)
-                        .obs;
+                    final isLiked = likeController.isBookLiked(book).obs;
                     return BookItem(
                       book: book,
                       onLike: () {
