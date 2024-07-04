@@ -10,7 +10,7 @@ class DioClient {
       : _dio = Dio(BaseOptions(
           baseUrl: dotenv.env['BASE_URL'] ?? '',
           connectTimeout: const Duration(seconds: 10),
-          receiveTimeout: const Duration(seconds: 3),
+          receiveTimeout: const Duration(seconds: 10),
         )) {
     _dio.interceptors.add(InterceptorsWrapper(onRequest: (option, handler) {
       log('Request[${option.method}] => PATH: ${option.baseUrl + option.path + option.queryParameters.toString()}');

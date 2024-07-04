@@ -69,10 +69,11 @@ class HomeView extends StatelessWidget {
             return ListView.builder(
               controller: controller.scrollController,
               itemCount:
-                  controller.bookModel.value.count == controller.books.length
-                      ? controller.books.length
-                      : controller.books.length + 1,
+              controller.bookModel.value.count == controller.books.length
+                  ? controller.books.length
+                  : controller.books.length + 1,
               itemBuilder: (context, index) {
+                print('length ${ controller.bookModel.value.count}|${controller.books.length}');
                 if (index >= controller.books.length) {
                   return const Padding(
                     padding: EdgeInsets.only(
@@ -89,19 +90,23 @@ class HomeView extends StatelessWidget {
                   );
                 } else {
                   final book = controller.books[index];
-                  final isLiked = likeController.isBookLiked(book).obs;
-                  return BookItem(
-                    book: book,
-                    onLike: () {
-                      if (likeController.isBookLiked(book)) {
-                        likeController.removeFromLikes(book);
-                      } else {
-                        likeController.addBookToLikes(book);
-                      }
-                      isLiked.value = !isLiked.value;
-                    },
-                    isLiked: isLiked,
-                  );
+                  return Obx(() {
+                    final isLiked = likeController
+                        .isBookLiked(book)
+                        .obs;
+                    return BookItem(
+                      book: book,
+                      onLike: () {
+                        if (likeController.isBookLiked(book)) {
+                          likeController.removeFromLikes(book);
+                        } else {
+                          likeController.addBookToLikes(book);
+                        }
+                        isLiked.value = !isLiked.value;
+                      },
+                      isLiked: isLiked,
+                    );
+                  });
                 }
               },
             );

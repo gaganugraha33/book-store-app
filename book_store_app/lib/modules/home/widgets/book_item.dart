@@ -28,7 +28,7 @@ class BookItem extends StatelessWidget {
             onPressed: onLike,
           )),
       onTap: () {
-        // Get.to(DetailsView(book: book));
+        Get.toNamed('/detail', arguments: book);
       },
     );
   }

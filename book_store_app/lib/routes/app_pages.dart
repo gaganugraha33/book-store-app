@@ -1,3 +1,5 @@
+import 'package:book_store_app/modules/detail/bindings/detail_binding.dart';
+import 'package:book_store_app/modules/detail/views/detail_view.dart';
 import 'package:book_store_app/modules/home/bindings/home_binding.dart';
 import 'package:book_store_app/modules/home/views/home_view.dart';
 import 'package:book_store_app/modules/likes/bindings/like_binding.dart';
@@ -24,6 +26,11 @@ class AppPages {
       name: '/liked_books',
       page: () => LikesView(),
       binding: LikeBinding(),
+    ),
+    GetPage(
+      name: '/detail',
+      page: () => DetailView(),
+      binding: DetailBinding(),
     ),
   ];
 }

@@ -9,11 +9,12 @@ class NavigationController extends GetxController {
   var selectedIndex = 0.obs;
 
   void changePage(int index) {
-    if (index == 0) {
-      homeController.onInit();
-    } else {
+    if (index == 1) {
       likeController.onInit();
     }
+    // else {
+    //   likeController.onInit();
+    // }
 
     selectedIndex.value = index;
   }

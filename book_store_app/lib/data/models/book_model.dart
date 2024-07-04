@@ -30,7 +30,6 @@ class BookModel {
   }
 }
 
-
 class Books {
   int? id;
   String? title;
@@ -40,20 +39,20 @@ class Books {
   List<String>? languages;
   bool? copyright;
   String? mediaType;
-  // Formats? formats;
+  Formats? formats;
   int? downloadCount;
 
   Books(
       {this.id,
-        this.title,
-        this.authors,
-        this.subjects,
-        this.bookshelves,
-        this.languages,
-        this.copyright,
-        this.mediaType,
-        // this.formats,
-        this.downloadCount});
+      this.title,
+      this.authors,
+      this.subjects,
+      this.bookshelves,
+      this.languages,
+      this.copyright,
+      this.mediaType,
+      this.formats,
+      this.downloadCount});
 
   Books.fromJson(Map<String, dynamic> json) {
     id = json['id'];
@@ -61,7 +60,7 @@ class Books {
     if (json['authors'] != null) {
       authors = <Authors>[];
       json['authors'].forEach((v) {
-        authors!.add( Authors.fromJson(v));
+        authors!.add(Authors.fromJson(v));
       });
     }
     subjects = json['subjects'].cast<String>();
@@ -69,8 +68,8 @@ class Books {
     languages = json['languages'].cast<String>();
     copyright = json['copyright'];
     mediaType = json['media_type'];
-    // formats =
-    // json['formats'] != null ? Formats.fromJson(json['formats']) : null;
+    formats =
+        json['formats'] != null ? Formats.fromJson(json['formats']) : null;
     downloadCount = json['download_count'];
   }
 
@@ -85,15 +84,14 @@ class Books {
     data['bookshelves'] = bookshelves;
     data['languages'] = languages;
     data['copyright'] = copyright;
-    data['media_type'] =mediaType;
-    // if (formats != null) {
-    //   data['formats'] = formats!.toJson();
-    // }
+    data['media_type'] = mediaType;
+    if (formats != null) {
+      data['formats'] = formats!.toJson();
+    }
     data['download_count'] = downloadCount;
     return data;
   }
 }
-
 
 class Authors {
   String? name;
@@ -132,16 +130,16 @@ class Formats {
 
   Formats(
       {this.textHtml,
-        this.applicationEpubZip,
-        this.applicationXMobipocketEbook,
-        this.applicationRdfXml,
-        this.imageJpeg,
-        this.textPlainCharsetUsAscii,
-        this.applicationOctetStream,
-        this.textHtmlCharsetUtf8,
-        this.textPlainCharsetUtf8,
-        this.textPlainCharsetIso88591,
-        this.textHtmlCharsetIso88591});
+      this.applicationEpubZip,
+      this.applicationXMobipocketEbook,
+      this.applicationRdfXml,
+      this.imageJpeg,
+      this.textPlainCharsetUsAscii,
+      this.applicationOctetStream,
+      this.textHtmlCharsetUtf8,
+      this.textPlainCharsetUtf8,
+      this.textPlainCharsetIso88591,
+      this.textHtmlCharsetIso88591});
 
   Formats.fromJson(Map<String, dynamic> json) {
     textHtml = json['text/html'];
