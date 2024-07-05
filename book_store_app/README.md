@@ -1,4 +1,4 @@
-[# book_store_app
+[# book_store_app]
 
 Apps for search information about books from [Gutendex](https://gutendex.com/)
 
